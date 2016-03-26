@@ -1,0 +1,23 @@
+{
+  "name": "dart-brunch",
+  "version": "0.0.1",
+  "description": "Adds Dart support to brunch.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/thluiz/dart-brunch.git"
+  },
+  "keywords": [
+    "dart",
+    "brunch"
+  ],
+  "author": "THiago Luiz Silva",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thluiz/dart-brunch/issues"
+  },
+  "homepage": "https://github.com/thluiz/dart-brunch#readme"
+}
