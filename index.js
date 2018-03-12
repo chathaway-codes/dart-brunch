@@ -1,6 +1,7 @@
 (function () {
 
-  var exec = require('child_process').exec;
+  const {spawn} = require('child_process');
+  var cwd = require('process').cwd;
   var path = require('path');
 
   module.exports = DartCompiler = (function () {
@@ -17,7 +18,7 @@
       }
 
       this.config = {
-        "dart_path": config.dart_path || "c:\\tools\\dart-sdk\\bin\\dart2js.bat",
+        "dart_path": config.dart_path || "pub",
         "path": config.path || config.origin || config.source || "main.dart",
         "output": config.output || "main.js",
         "minify": false,
@@ -45,18 +46,32 @@
         var cfg = this.config;
         var error = null;
 
-        var cmd = cfg.dart_path + " " + path.join.apply(null, [ path.resolve(path.dirname()), cfg.path ]);
+        const inputFile = cfg.path;
+        var arguments = ["build"]
         if(cfg.output !== "") {
-          cmd += " -o " + path.join.apply(null, [path.resolve(path.dirname()),  cfg.output ]);
+          const outputFile = path.join.apply(null, [path.resolve(cwd()),  cfg.output ]);
+          console.log(outputFile);
+          arguments.push("-o");
+          arguments.push(outputFile);
         }
 
-        exec(cmd, function (err, _stdout, _stderr) {
-          if (err) {
+        const pub = spawn(cfg.dart_path, arguments, {shell: true, cwd: inputFile});
+
+        pub.stdout.on('data', (data) => {
+          console.log(`stdout: ${data}`);
+        });
+
+        pub.stderr.on('data', (data) => {
+          console.log(`stderr: ${data}`);
+        });
+
+        pub.on('close', (code) => {
+          if (code !== 0) {
+            const err = "Program exited with code " + code;
             console.log(err);
             callback(err);
             return;
           }
-
           console.log("Dart Compiled!!");
           callback();
         });

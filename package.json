@@ -1,6 +1,6 @@
 {
   "name": "dart-brunch",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Adds Dart support to brunch.",
   "main": "index.js",
   "scripts": {
@@ -23,5 +23,7 @@
     "mocha": "1.2.2",
     "chai": "1.1.0"
   },
-  "homepage": "https://github.com/thluiz/dart-brunch#readme"
+  "homepage": "https://github.com/thluiz/dart-brunch#readme",
+  "dependencies": {
+  }
 }
